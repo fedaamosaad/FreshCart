@@ -1,0 +1,37 @@
+nav{
+    background-color: var(--light-color);
+}
+nav {
+    transition: background-color 0.5s, box-shadow 0.20s !important;
+  }
+  .toogles {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .nav-link {
+    color: #000 !important;
+  }
+  
+ 
+  
+  
+  .numCustomize{
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+  }
+  .navbar-transparent{
+    background-color: transparent;
+  }
+  
+  @media(max-width:992px){
+    .numCustomize{
+      left: 20px;
+      top: -10px;
+    }
+    .navbar{
+      background-color: #fff !important;
+    }
+  }

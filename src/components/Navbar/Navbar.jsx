@@ -9,7 +9,7 @@ export default function Navbar() {
 
   let navigate = useNavigate()
   let [count, setCount] = useState(0);
-  let {cartItemsNum } = useContext(CartContext);
+  let { cartItemsNum } = useContext(CartContext);
   let { token, setToken } = useContext(UserTokenContext);
   let [open, setOpen] = useState(false)
 
@@ -59,15 +59,16 @@ export default function Navbar() {
         </div>
 
         <ul className={`${open ? 'block' : 'hidden'}  md:flex flex-col gap-2  md:flex-row `}>
-          <li className="text-xl md:me-10">
-            <Link to='cart'><span className="border-b-green-500 border-b-2">{cartItemsNum}</span> <i className="fas fa-cart-arrow-down me-2 text-green-500"></i></Link>
-           {/* <Link to='wishlist'> <i className="fas fa-heart mx-2 text-red-500"></i></Link> */}
-            
-          </li>
-          {token ?
+
+          {token ? <>
+            <li className="text-xl md:me-10">
+              <Link to='cart'><span className="border-b-green-500 border-b-2">{cartItemsNum}</span> <i className="fas fa-cart-arrow-down me-2 text-green-500"></i></Link>
+              {/* <Link to='wishlist'> <i className="fas fa-heart mx-2 text-red-500"></i></Link> */}
+
+            </li>
             <li className="text-xl">
               <button className="hover:text-green-500" onClick={handleLogOut} to="login">Sign Out </button>
-            </li>
+            </li></>
             :
             <>
               <li className="text-xl ">

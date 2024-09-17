@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import styles from './Cart.module.css'
+
 import { CartContext } from '../../Context/CartContext'
 import { HashLoader } from 'react-spinners'
 import { useNavigate } from 'react-router-dom'

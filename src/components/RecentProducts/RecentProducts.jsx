@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import styles from './RecentProducts.module.css'
+
 import axios from 'axios'
 import ProductItem from '../ProductItem/ProductItem'
 import { useQuery } from '@tanstack/react-query'
 import { HashLoader } from 'react-spinners'
 import { CartContext } from '../../Context/CartContext'
-import { Link } from 'react-router-dom'
-import ReactPaginate from 'react-paginate';
+
 import toast from 'react-hot-toast'
 
 export default function RecentProducts() {

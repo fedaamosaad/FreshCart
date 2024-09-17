@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from './CartItem.module.css'
+
  
 export default function CartItem({ele,updateCount,removeItem,showActions}) {
 

@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./../../assets/images/freshcart-logo.svg";
+
 import logo2 from "./../../assets/images/CartIcon.svg";
 
 import { HashLoader } from "react-spinners";

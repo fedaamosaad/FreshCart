@@ -55,7 +55,7 @@ export default function Brands() {
                       <div className=" flex items-center justify-center mx-8  mt-1">
                         <img
                           src={brand.image}
-                          className="w-full rounded-3xl hover:w-[97%] transition-all  shadow-lg  shadow-emerald-500 hover:shadow-xl hover:shadow-emerald-600  duration-800   object-cover "
+                          className="w-full rounded-xl  transition-all  shadow-lg  hover:shadow-xl  duration-800   object-cover "
                           alt={brand.name} 
                         />
                       </div>

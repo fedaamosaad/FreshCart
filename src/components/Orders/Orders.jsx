@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import styles from './Orders.module.css'
+
 import { CartContext } from '../../Context/CartContext'
 import { UserTokenContext } from '../../Context/UserTokenContext'
 import { Accordion } from "flowbite-react";

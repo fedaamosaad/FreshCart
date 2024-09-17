@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import styles from './CheckOut.module.css'
+
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import {
   CitySelect,
   CountrySelect,
-  StateSelect
-} from "react-country-state-city";
+  StateSelect} from "react-country-state-city";
+
 import "react-country-state-city/dist/react-country-state-city.css";
 import { CartContext } from '../../Context/CartContext';
 import { useNavigate, useParams } from 'react-router-dom';

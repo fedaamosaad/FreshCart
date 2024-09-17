@@ -7,7 +7,9 @@ import Footer from '../Footer/Footer'
 export default function Layout() {
 
 let [count ,setCount]=useState(0) 
-    useEffect(() => { }, [])
+    useEffect(() => {
+    
+     }, [])
 
   return (
 <>

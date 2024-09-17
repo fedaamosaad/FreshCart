@@ -27,41 +27,41 @@ export default function TopSlider() {
     <>
       <div className="row  w-11/12 mx-auto md:w-full py-5">
         
-        <div className="w-full md:w-3/4 ">
-          <Slider {...settings}>
+      
+          <Slider {...settings} className="w-full md:w-3/4 ">
             
             <img
               src={slider5}
-              className="w-5/6 md:w-full md:object-cover  object-fill  h-[400px]"
+              className="w-5/6 md:w-full  object-right  object-cover  h-[200px] md:h-[400px]"
               alt="slider3"
             />
             <img
               src={slider4}
-              className="w-5/6 md:w-full md:object-cover  object-fill h-[400px]"
+              className="w-5/6 md:w-full  object-right  object-cover h-[200px] md:h-[400px]"
               alt="slider4"
             />
             <img
               src={slider3}
-              className="w-5/6 md:w-full md:object-cover  object-fill h-[400px]"
+              className="w-5/6 md:w-full  object-right  object-cover h-[200px] md:h-[400px]"
               alt="slider5"
             />
             <img
               src={slider1}
-              className="w-5/6 md:w-full md:object-cover  object-fill h-[400px]"
+              className="w-5/6 md:w-full  object-right  object-cover h-[200px] md:h-[400px]"
               alt="slider5"
             />
             <img
               src={slider2}
-              className="w-5/6 md:w-full md:object-cover  object-fill h-[400px]"
+              className="w-5/6 md:w-full  object-right  object-cover h-[200px] md:h-[400px]"
               alt="slider5"
             />
           </Slider>
-        </div>
+       
 
         
-        <div className="w-full md:w-1/4 flex md:flex-col">
-          <img src={slider2} className="w-1/2  md:w-full h-[200px]" alt="" /> 
-          <img src={slider3} className="w-1/2 md:w-full h-[200px]" alt="" />
+        <div className="w-full sm:w-1/4 flex md:flex-col">
+          <img src={slider2} className="w-1/2  md:w-full h-auto md:h-[200px]" alt="" /> 
+          <img src={slider3} className="w-1/2 md:w-full h-auto md:h-[200px]" alt="" />
         </div>
       </div>
     </>

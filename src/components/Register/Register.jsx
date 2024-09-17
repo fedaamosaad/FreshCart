@@ -3,7 +3,7 @@ import styles from "./Register.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Register() {
   let [apiError,setApiError]=useState(null)
   let [isLoading,setIsLoading]=useState(false)
@@ -28,20 +28,28 @@ navigate("/login")
   const validationSchema = () => {
     return Yup.object({
       name: Yup.string()
-        .min(2, "Too Short!")
-        .max(30, "Too Long!")
-        .required("Required"),
-
-      email: Yup.string().email("Invalid email").required("Required"),
+        .min(2, "Name is too short! It should be at least 2 characters.")
+        .max(30, "Name is too long! It should be at most 30 characters.")
+        .required("Name is required."),
+      
+      email: Yup.string()
+        .email("Invalid email format.")
+        .required("Email is required."),
+      
       phone: Yup.string()
-        .matches(/^01[0125][0-9]{8}$/)
-        .required("Required"),
+        .matches(/^01[0125][0-9]{8}$/, "Phone number must be a valid Egyptian number (e.g., 01012345678).")
+        .required("Phone number is required."),
+      
       password: Yup.string()
-        .matches(/^[A-z][a-z]{6,15}$/)
-        .required("Required"),
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+          "Password must be 8-20 characters long, contain at least one uppercase letter, one lowercase letter, and one digit."
+        )
+        .required("Password is required."),
+      
       rePassword: Yup.string()
-        .oneOf([Yup.ref("password")], "repassword must match password")
-        .required("Required"),
+        .oneOf([Yup.ref("password")], "Re-entered password must match the password.")
+        .required("Re-entering the password is required."),
     });
   };
 
@@ -65,7 +73,7 @@ navigate("/login")
           >
             <span className="font-medium">{apiError}</span>
           </div>}
-      <form onSubmit={myForm.handleSubmit} className="max-w-sm mx-auto">
+      <form onSubmit={myForm.handleSubmit} className="max-w-sm pt-10 mx-auto">
         <div className="mb-5">
           <label
             htmlFor="name"
@@ -76,7 +84,7 @@ navigate("/login")
           <input
             type="text"
             id="name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             placeholder="name"
             value={myForm.values.name}
             onChange={myForm.handleChange}
@@ -102,7 +110,7 @@ navigate("/login")
           <input
             type="email"
             id="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             placeholder="name@flowbite.com"
             value={myForm.values.email}
             onChange={myForm.handleChange}
@@ -127,7 +135,7 @@ navigate("/login")
           <input
             type="password"
             id="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             placeholder="password"
             value={myForm.values.password}
             onChange={myForm.handleChange}
@@ -152,7 +160,7 @@ navigate("/login")
           <input
             type="password"
             id="rePassword"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             placeholder="repassword"
             value={myForm.values.rePassword}
             onChange={myForm.handleChange}
@@ -177,7 +185,7 @@ navigate("/login")
           <input
             type="tel"
             id="phone"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             placeholder="phone"
             value={myForm.values.phone}
             onChange={myForm.handleChange}
@@ -195,13 +203,15 @@ navigate("/login")
         <button
         disabled={isLoading}
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white btn  focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
          {isLoading?<i className="fa fa-spinner fa-spin"></i> :"Submit" }
           
         </button>
 
       </form>
+      <div className="flex items-center justify-center pt-6"><div className="w-28 h-0.5 bg-gray-300"></div><p className="text-lg px-4 text-gray-500">or</p><div className="w-28 h-0.5 bg-gray-300"></div></div>
+      <p className='text-center'>already have account? <Link className='text-underline text-green-700' to={'/login'}>Login</Link></p>
     </>
   );
 }

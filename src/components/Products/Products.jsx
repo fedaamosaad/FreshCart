@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import RecentProducts from '../RecentProducts/RecentProducts';
 
 export default function Products() {
     let [products,setProducts]=useState([])
@@ -18,6 +19,8 @@ export default function Products() {
   
 
   return (
-    <div>Products</div>
+     <div className="row mt-5">
+    <RecentProducts />
+     </div>
   )
 }

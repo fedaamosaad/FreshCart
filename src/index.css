@@ -42,6 +42,7 @@ a , a:hover{
     transition: transform 1s , opacity 1s;
     transform: translateY(100%);
     opacity: 0;
+    width: 100%;
 }
 .product:hover .btn 
 {
@@ -66,11 +67,10 @@ a , a:hover{
     background-color: var(--light-color) !important;
 }
 .row{
-    @apply flex flex-wrap  min-h-[70vh]
+    @apply flex flex-wrap
 }
-/* .container{
-    @apply
-} */
+
 .btn{
-    @apply bg-green-500 w-full rounded-lg text-white p-2
+    @apply bg-green-500  rounded-lg text-white ;
+   
 }

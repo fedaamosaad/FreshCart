@@ -1,14 +1,11 @@
-import { useState } from 'react'
-
+import { useContext, useEffect, useState } from 'react'
+import { Toaster } from 'react-hot-toast';
 import './App.css'
 import Home from './components/Home/Home'
-import Contact from './components/Contact/Contact'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import Register from './components/Register/Register'
 import Cart from './components/Cart/Cart'
-import About from './components/About/About'
-import Categories from './components/Categories/Categories'
 import Brands from './components/Brands/Brands'
 import Login from './components/Login/Login'
 import NotFound from './components/NotFound/NotFound'
@@ -19,7 +16,9 @@ import ProductDetails from './components/ProductDetails/ProductDetails'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Products from './components/Products/Products'
-import CartContextProvider from './Context/CartContext'
+import  { CartContext } from './Context/CartContext'
+import CheckOut from './components/checkOut/checkOut';
+import Orders from './components/Orders/Orders';
 
 
 let query = new QueryClient()
@@ -30,27 +29,40 @@ const routes = createBrowserRouter([
       { path: 'home', element: <ProtectedRoutes><Home /></ProtectedRoutes> },
       { path: 'cart', element: <ProtectedRoutes><Cart /></ProtectedRoutes> },
       { path: 'products', element: <ProtectedRoutes><Products /></ProtectedRoutes> },
-      { path: 'about', element: <ProtectedRoutes><About /></ProtectedRoutes> },
-      { path: 'categories', element: <ProtectedRoutes><Categories /></ProtectedRoutes> },
+      { path: 'checkout/:cartId', element: <ProtectedRoutes><CheckOut /></ProtectedRoutes> },
+      { path: 'allorders', element: <ProtectedRoutes><Orders /></ProtectedRoutes> },
       { path: 'brands', element: <ProtectedRoutes><Brands /></ProtectedRoutes> },
       { path: 'productdetails/:id/:categoryId', element: <ProtectedRoutes><ProductDetails /></ProtectedRoutes> },
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
       { path: '*', element: <NotFound /> },
-
     ]
   }
 ])
 function App() {
+  let {getCart,setCartItemsNum}=useContext(CartContext)
+useEffect(() => {
+  getCartItems()   
+}, [])
 
+async function getCartItems() {
+  let res = await getCart()
+ 
+   
+    setCartItemsNum(res.numOfCartItems) 
+    
+      
+  
+}
   return (
     <>
       <QueryClientProvider client={query}>
         <UserTokenContextProvider>
           <CounterContextProvider>
-            <CartContextProvider>
+           
               <RouterProvider router={routes}> </RouterProvider>
-            </CartContextProvider>
+              <Toaster/>
+            
             <ReactQueryDevtools></ReactQueryDevtools>
           </CounterContextProvider>
         </UserTokenContextProvider>

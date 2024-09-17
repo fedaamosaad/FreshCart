@@ -6,11 +6,12 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useContext } from "react";
 import { UserTokenContext } from "../../Context/UserTokenContext";
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   let [apiError, setApiError] = useState(null);
   let [isLoading, setIsLoading] = useState(false);
-  let tokenContext = useContext(UserTokenContext);
+  let {setToken,convertToken} = useContext(UserTokenContext);
 
   let navigate = useNavigate();
   function login(formValue) {
@@ -18,19 +19,23 @@ export default function Login() {
     setIsLoading(true);
     axios
       .post("https://ecommerce.routemisr.com/api/v1/auth/signin", formValue)
-      .then((res) => {
-        console.log(res);
+      .then(({data}) => {
+        // console.log(res);
 
-        let { data } = res;
+       
         if (data.message == "success") {
+          setIsLoading(false)
+          
           localStorage.setItem("token", data.token);
+          setToken(data.token);
+          convertToken()
           navigate("/home");
-          tokenContext.setToken(data.token);
-          console.log(data.token, "hello login");
+         
         }
       })
       .catch((err) => {
         setApiError(err.response.data.message);
+
         setIsLoading(false);
       });
   }
@@ -63,7 +68,7 @@ export default function Login() {
           <span className="font-medium">{apiError}</span>
         </div>
       )}
-      <form onSubmit={myForm.handleSubmit} className="max-w-sm mx-auto">
+      <form onSubmit={myForm.handleSubmit} className="max-w-sm pt-10 mx-auto">
         <div className="mb-5">
           <label
             htmlFor="email"
@@ -123,10 +128,13 @@ export default function Login() {
         >
           {isLoading ? <i className="fa fa-spinner fa-spin"></i> : "Login"}
         </button>
-
-        <p className='text-center'>dont have account? <Link className='text-underline text-green-700' to={'/register'}>Register</Link></p>
-        <p className='text-center'> <Link className=' my-3' to='/forget'> forget password </Link></p>
+        <p className='text-center'> <Link className=' my-3' to='/forget'> forgot password? </Link></p>
+       
       </form>
+      <div className="flex items-center justify-center pt-6"><div className="w-28 h-0.5 bg-gray-300"></div><p className="text-lg px-4 text-gray-500">or</p><div className="w-28 h-0.5 bg-gray-300"></div></div>
+
+      <p className='text-center'>dont have account? <Link className='text-underline text-green-700' to={'/register'}>Register</Link></p>
+       
     </>
   );
 }

@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-
+import img from '../../assets/images/Empty-cart.svg'
 import { CartContext } from '../../Context/CartContext'
 import { HashLoader } from 'react-spinners'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import CartItem from '../CartItem/CartItem'
 
 export default function Cart() {
-  let { setCartItemsNum, getCart, removeProduct, updateProductCount, setCartId, cartId } = useContext(CartContext)
+  let {cartItemsNum, setCartItemsNum, getCart, removeProduct, updateProductCount, setCartId, cartId } = useContext(CartContext)
   let [cartInfo, setCartInfo] = useState(null)
   let navigate = useNavigate()
   const [loading, setLoading] = useState(true);
@@ -35,7 +35,8 @@ export default function Cart() {
     navigate(`/checkout/${cartId}`)
   }
   return (
-    <><div className='mt-5 min-h-[70vh]'>
+    <>
+    {cartItemsNum !== 0?   <div className='mt-5 min-h-[70vh]'>
       {loading ? <div className='flex justify-center items-center  min-h-[70vh]'><HashLoader color='#68d391' /></div> :
         <>
           <h1 className='text-4xl text-center  font-bold'>Your Cart</h1>
@@ -87,7 +88,10 @@ export default function Cart() {
               </button>
             </div>
           </div></>
-      }</div>
+      }</div>: <div className='mt-5 min-h-[70vh] flex flex-col   justify-center items-center'> <img className='lg:w-1/4 w-1/2' src={img} alt="" />
+      <span className='my-3'>Looks Like You have nothing in ur cart yet</span>
+      <Link className='btn px-5 py-2 hover:bg-green-600 hover:text-white' to={'/products'}>Shop Now</Link></div> }
+  
     </>
   )
 }

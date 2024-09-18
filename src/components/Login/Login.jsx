@@ -44,8 +44,12 @@ export default function Login() {
     return Yup.object({
       email: Yup.string().email("Invalid email").required("Required"),
       password: Yup.string()
-        .matches(/^[A-z][a-z]{6,15}$/)
-        .required("Required"),
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+          "Password must be 8-20 characters long, contain at least one uppercase letter, one lowercase letter, and one digit."
+        )
+        .required("Password is required."),
+      
     });
   };
 
@@ -62,17 +66,17 @@ export default function Login() {
     <>
       {apiError && (
         <div
-          className="max-w-sm mx-auto p-4 mb-4 text-sm text-red-50 rounded-lg bg-red-500 dark:bg-gray-800 dark:text-red-400"
+          className="max-w-sm mx-auto p-4 mt-5 text-sm text-red-50 rounded-lg bg-red-500 "
           role="alert"
         >
-          <span className="font-medium">{apiError}</span>
+          <span className="font-medium ">{apiError}</span>
         </div>
       )}
-      <form onSubmit={myForm.handleSubmit} className="max-w-sm pt-10 mx-auto">
+      <form onSubmit={myForm.handleSubmit} className="max-w-sm mt-10 mx-auto">
         <div className="mb-5">
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 "
           >
             Your email
           </label>
@@ -80,7 +84,7 @@ export default function Login() {
           <input
             type="email"
             id="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
             placeholder="name@flowbite.com"
             value={myForm.values.email}
             onChange={myForm.handleChange}
@@ -89,7 +93,7 @@ export default function Login() {
         </div>
         {myForm.errors.email && myForm.touched.email ? (
           <div
-            className="p-4 mb-4 text-sm text-red-50 rounded-lg bg-red-500 dark:bg-gray-800 dark:text-red-400"
+            className="p-4 mb-4 text-sm text-red-50 rounded-lg bg-red-500 "
             role="alert"
           >
             <span className="font-medium">{myForm.errors.email}</span>
@@ -98,14 +102,14 @@ export default function Login() {
         <div className="mb-5">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 "
           >
             Your password
           </label>
           <input
             type="password"
             id="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
             placeholder="password"
             value={myForm.values.password}
             onChange={myForm.handleChange}
@@ -114,7 +118,7 @@ export default function Login() {
         </div>
         {myForm.errors.password && myForm.touched.password ? (
           <div
-            className="p-4 mb-4 text-sm text-red-50 rounded-lg bg-red-500 dark:bg-gray-800 dark:text-red-400"
+            className="p-4 mb-4 text-sm text-red-50 rounded-lg bg-red-500 "
             role="alert"
           >
             <span className="font-medium">{myForm.errors.password}</span>
@@ -128,7 +132,7 @@ export default function Login() {
         >
           {isLoading ? <i className="fa fa-spinner fa-spin"></i> : "Login"}
         </button>
-        <p className='text-center'> <Link className=' my-3' to='/forget'> forgot password? </Link></p>
+        <p className='text-center'> <Link className=' my-3' to={'/forgotpassword'}> forgot password? </Link></p>
        
       </form>
       <div className="flex items-center justify-center pt-6"><div className="w-28 h-0.5 bg-gray-300"></div><p className="text-lg px-4 text-gray-500">or</p><div className="w-28 h-0.5 bg-gray-300"></div></div>

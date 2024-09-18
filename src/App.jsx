@@ -19,6 +19,9 @@ import Products from './components/Products/Products'
 import  { CartContext } from './Context/CartContext'
 import CheckOut from './components/checkOut/checkOut';
 import Orders from './components/Orders/Orders';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import ResetPassword from './components/ResetPassword/ResetPassword';
+
 
 
 let query = new QueryClient()
@@ -27,6 +30,8 @@ const routes = createBrowserRouter([
     path: '', element: <Layout />, children: [
       { index: true, element: <Register /> },
       { path: 'home', element: <ProtectedRoutes><Home /></ProtectedRoutes> },
+      { path: 'forgotpassword', element: <ForgotPassword /> },
+      { path: 'resetpassword', element: <ResetPassword /> },
       { path: 'cart', element: <ProtectedRoutes><Cart /></ProtectedRoutes> },
       { path: 'products', element: <ProtectedRoutes><Products /></ProtectedRoutes> },
       { path: 'checkout/:cartId', element: <ProtectedRoutes><CheckOut /></ProtectedRoutes> },
